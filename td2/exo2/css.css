@@ -1,0 +1,59 @@
+html{
+    background:silver;
+}
+
+body{
+    max-width:1000px;
+    margin: 0 auto;
+    padding: 0 auto;
+    padding-top:1em;
+    padding-bottom:2em;
+    background:pink;
+    position:relative;
+}
+
+#articles{
+    position: absolute;
+    right: 50px;
+    font-size: 80%;
+}
+
+article{
+    border:solid darkblue 2px;
+    margin:3px;
+    padding: 5px;
+}
+
+header{
+    padding-left:4em;
+}
+
+section{
+    padding-top: 2%;
+    padding-left: 5%;
+}
+
+section div{
+    padding-left:10px;
+    background: lightblue;
+    width:550px;
+}
+
+#fleches{
+    text-align: center;
+}
+
+figure div{
+    display:inline-block;
+    width:160px;
+    height: auto;
+}
+
+.neutre{
+    border: solid lightblue 2px;
+}
+
+.noir{
+    border: solid black 2px;
+}
+

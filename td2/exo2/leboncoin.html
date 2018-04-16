@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Le boncoin</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css.css">
+</head>
+
+<body>
+<header>
+    <h1>Chaton Persan</h1>
+    <p>Mise en ligne par Karima</p>
+</header>
+
+<div id="articles">
+    <article>
+        <h3>Contacter l'annonceur</h3>
+        <p><a>Envoyer un email</a></p>
+        <p><a>Voir le numero de telephone</a></p>
+    </article>
+    <article>
+        <h3>Gerer votre annonce</h3>
+        <p><a>Modifier</a></p>
+        <p><a>Supprimer</a></p>
+        <p><a>Remonter en tete de liste</a></p>
+        <p><a>Mettre en avant</a></p>
+    </article>
+</div>
+
+<section>
+    <div>
+        <img src="img/img1.jpg" alt="photo de chaton" id="grandeImg"/>
+        <figure id="fleches">
+            <img src="img/left.png" alt="gauche" id="left" height="100" onclick="changerImage(this.id);"/>
+            <img src="img/right.png" alt="droite" id="right" height="100" onclick="changerImage(this.id);"/>
+        </figure>
+    </div>
+
+    <figure>
+        <div id="cadreimg1" class="noir">
+            <img src="img/mini_img1.jpg" alt="mini 1" id="img1" onMouseOver="afficherImage(this.id);"/>
+        </div>
+        <div id="cadreimg2" class="neutre">
+            <img src="img/mini_img2.jpg" alt="mini 2" id="img2" onMouseOver="afficherImage(this.id);"/>
+        </div>
+        <div id="cadreimg3" class="neutre">
+            <img src="img/mini_img3.jpg" alt="mini 3" id="img3" onMouseOver="afficherImage(this.id);"/>
+        </div>
+    </figure>
+</section>
+
+<script>
+    function afficherImage(id) {
+        var image = document.getElementById('grandeImg');
+        var sourceActu = image.src;
+
+        var idActu = sourceActu.substring(sourceActu.lastIndexOf("/") + 1);
+        document.getElementById("cadre" + idActu.substring(0, 4)).className = 'neutre';
+
+        image.src = 'img/' + id + '.jpg';
+        document.getElementById("cadre" + id).className = 'noir';
+    }
+
+    function changerImage(id) {
+        var image = document.getElementById('grandeImg');
+        var sourceImg = image.src.substring(image.src.lastIndexOf("/") + 1);
+        var numeroImg = sourceImg.substring(3, 4);
+
+        if (id === "right") {
+            if (numeroImg < 3) {
+                numeroImg++;
+            } else {
+                numeroImg = 1;
+            }
+        } else {
+            if (numeroImg > 1) {
+                numeroImg--;
+            } else {
+                numeroImg = 3;
+            }
+        }
+
+        afficherImage("img" + numeroImg);
+    }
+</script>
+
+</body>
+</html>
