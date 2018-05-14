@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test JSON</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body class="container">
+    <!-- au début, le tableau est vide -->
+    <table id="tableau" class="table">
+        <tr>
+            <th>NOM</th>
+            <th>PRIX</th>
+            <th>IMAGE</th>
+        </tr>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="bieres.js"></script>
+    <script type="text/javascript">
+        // cette fonction est lancée au chargement de la page
+        $(function() {
+            // la variable 'bieres' provient du fichier 'bieres.js'
+            bieres.forEach(function (biere) {
+                // pour chaque bière présente dans cette variable
+                // on prépare une nouvelle ligne à ajouter dans le tableau HTML
+                let ligne = '<tr>' +
+                        '<td>' + biere.nom.toUpperCase() + '</td>' +
+                        '<td>' + biere.prix + ' €</td>' +
+                        '<td><img src="img/' + biere.image + '" alt="photo" height="100"></td>' +
+                        '</tr>';
+                // puis on l'ajoute en fin de tableau
+                $('#tableau').append(ligne);
+            })
+        });
+    </script>
+</body>
+</html>
