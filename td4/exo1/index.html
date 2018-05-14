@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>test ajax avec javascript</title>
+</head>
+
+<body>
+    <button onclick="lancerRequeteAjax('test.html')">
+        Effectuer une requête Ajax
+    </button>
+
+    <script type="text/javascript" language="javascript">
+        /**
+         * Lance une requête AJAX.
+         *
+         * @param url la destination
+         */
+        function lancerRequeteAjax(url) {
+            let httpRequest = false;
+            httpRequest = new XMLHttpRequest();
+
+            if (!httpRequest) {
+                alert('Abandon :( Impossible de créer une instance XMLHTTP');
+                return false;
+            }
+
+            httpRequest.onreadystatechange = function () {
+                afficherResultat(httpRequest);
+            };
+
+            httpRequest.open('GET', url, true);
+            httpRequest.send(null);
+        }
+
+        /**
+         * Affiche le résultat de la requête dans un alert.
+         *
+         * @param httpRequest la requete HTTP
+         */
+        function afficherResultat(httpRequest) {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+                    alert(httpRequest.responseText);
+                } else {
+                    alert('Un problème est survenu avec la requête.');
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>
