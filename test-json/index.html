@@ -18,22 +18,31 @@
     </table>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="bieres.js"></script>
     <script type="text/javascript">
         // cette fonction est lancée au chargement de la page
         $(function() {
-            // la variable 'bieres' provient du fichier 'bieres.js'
-            bieres.forEach(function (biere) {
-                // pour chaque bière présente dans cette variable
-                // on prépare une nouvelle ligne à ajouter dans le tableau HTML
-                let ligne = '<tr>' +
-                        '<td>' + biere.nom.toUpperCase() + '</td>' +
-                        '<td>' + biere.prix + ' €</td>' +
-                        '<td><img src="img/' + biere.image + '" alt="photo" height="100"></td>' +
-                        '</tr>';
-                // puis on l'ajoute en fin de tableau
-                $('#tableau').append(ligne);
-            })
+            $.ajax({
+                dataType: "json",
+                url: "bieres.json",
+                success: function (data) {
+                    const bieres = data;
+
+                    bieres.forEach(function (biere) {
+                        // pour chaque bière présente dans le tableau
+                        // on prépare une nouvelle ligne à ajouter dans le tableau HTML
+                        let ligne = '<tr>' +
+                            '<td>' + biere.nom.toUpperCase() + '</td>' +
+                            '<td>' + biere.prix + ' €</td>' +
+                            '<td><img src="img/' + biere.image + '" alt="photo" height="100"></td>' +
+                            '</tr>';
+                        // puis on l'ajoute en fin de tableau
+                        $('#tableau').append(ligne);
+                    })
+                },
+                error: function (resultat) {
+                    alert('erreur lors du chargement des bières');
+                }
+            });
         });
     </script>
 </body>
