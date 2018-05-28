@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Magasin de Fruits</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/i18n/angular-locale_fr-fr.js"></script>
+    <script type="text/javascript" src="store.js"></script>
+</head>
+
+<body ng-app="store" ng-controller="MonController">
+<div class="container">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a data-toggle="modal" data-target="#myModal">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Panier ({{ getNumberInCart() }})</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Mon Panier</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered" ng-if="panier.length > 0">
+                        <tr ng-repeat="article in panier">
+                            <td ng-bind="article"></td>
+                            <td ng-bind="panier[article]['price']|currency:'€'"></td>
+                            <td ng-bind="panier[article]['quantity']"></td>
+                            <td ng-bind="panier[article]['price'] * panier[article]['quantity']|currency:'€'"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="3">TOTAL</th>
+                            <th>{{ getAmountOfCart()|currency:'€' }}</th>
+                        </tr>
+                    </table>
+
+                    <p ng-if="panier.length <= 0">Votre panier est vide</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <h1 class="text-center page-header">Liste de Fruits</h1>
+
+        <form class="form">
+            <label><span class="glyphicon glyphicon-filter"></span> Filtrer :</label>
+            <input type="text" ng-model="query" placeholder="Filtre">
+
+            <label for="order"><span class="glyphicon glyphicon-sort"></span> Organise par :</label>
+            <select ng-model="order" id="order">
+                <option value="name">Nom</option>
+                <option value="price">Prix</option>
+            </select>
+        </form>
+
+        <br>
+
+        <div>
+            <ul class="list-group">
+                <li ng-repeat="fruit in fruits | filter:{desc:query} | orderBy:order"
+                    ng-hide="fruit.outOfStock"
+                    class="list-group-item">
+                    <h3>
+                        {{fruit.name}} <em class="pull-right">({{fruit.price|currency: ''}} €)</em>
+                        <img ng-src="{{fruit.image.full}}" width="300">
+                    </h3>
+
+                    <br>
+                    <button ng-show="fruit.canPurchase"
+                            ng-click="addToCart(fruit)" class="pull-right btn btn-success">add to Cart
+                    </button>
+
+                    <section ng-init='selectedTab=0'>
+                        <ul class="nav nav-pills">
+                            <li><a href ng-click="selectedTab=1">Desciption</a></li>
+                            <li><a href ng-click="selectedTab=2">Specification</a></li>
+                            <li><a href ng-click="selectedTab=3">Commentaires</a></li>
+                        </ul>
+
+                        <div class="panel" ng-show="selectedTab == 1">
+                            <h4>Description</h4>
+                            <p>{{ fruit.desc }}</p>
+                        </div>
+                        <div class="panel" ng-show="selectedTab == 2">
+                            <h4>Specification</h4>
+                            <p>Rien de rien</p>
+                        </div>
+                        <div class="panel" ng-show="selectedTab == 3">
+                            <h4>Commentaire</h4>
+                            <p>Rien pour le moment</p>
+                        </div>
+                    </section>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div> <!-- main container -->
+</body>
+</html>
