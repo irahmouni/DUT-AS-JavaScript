@@ -1,0 +1,47 @@
+// DATA
+const fruitsData = [
+    {
+        "name": "Banane",
+        "price": 10,
+        "desc": "Super fruits jaune",
+        "canPurchase": true,
+        "outOfStock": false,
+        "image": {
+            full: 'img\\banane.full.jpg',
+            thumb: 'img\\banane.thumb.jpg'
+        }
+    },
+    {
+        "name": "Pomme",
+        "price": 7,
+        "desc": "Super fruits pour de la compote",
+        "canPurchase": true,
+        "outOfStock": true,
+        "image": {
+            full: 'img\\banane.full.jpg',
+            thumb: 'img\\banane.thumb.jpg'
+        }
+    },
+    {
+        "name": "Prune",
+        "price": 7,
+        "desc": "Fruit qui a le nom d'une couleur",
+        "canPurchase": false,
+        "outOfStock": false,
+        "image": {
+            full: 'img\\prune.full.jpg',
+            thumb: 'img\\prune.thumb.jpg'
+        }
+    },
+    {
+        "name": "Fraise",
+        "price": 3,
+        "desc": "De la famille des fruits rouges, sympas en glace",
+        "canPurchase": true,
+        "outOfStock": false,
+        "image": {
+            full: 'img\\fraise.full.jpg',
+            thumb: 'img\\fraise.thumb.jpg'
+        }
+    }
+];
