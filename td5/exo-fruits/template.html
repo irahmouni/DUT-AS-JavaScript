@@ -16,8 +16,66 @@
     <script type="text/javascript" src="store.js"></script>
 </head>
 
-<body>
+<body ng-app="store" ng-controller="MonController">
 <div class="container">
+
+
+    <div class="row">
+        <h1 class="text-center page-header">Liste de Fruits</h1>
+
+        <form class="form">
+            <label><span class="glyphicon glyphicon-filter"></span> Filtrer :</label>
+            <input type="text" ng-model="query" placeholder="Filtre">
+
+            <label for="order"><span class="glyphicon glyphicon-sort"></span> Organise par :</label>
+            <select ng-model="order" id="order">
+                <option value="name">Nom</option>
+                <option value="price">Prix</option>
+            </select>
+        </form>
+
+        <br>
+
+        <div>
+            <ul class="list-group">
+                <li ng-repeat="fruit in fruits | filter:{desc:query} | orderBy:order"
+                    ng-hide="fruit.outOfStock"
+                    class="list-group-item">
+                    <h3>
+                        {{fruit.name}} <em class="pull-right">({{fruit.price|currency: ''}} €)</em>
+                        <img ng-src="{{fruit.image.full}}" width="300">
+                    </h3>
+
+                    <br>
+                    <button ng-show="fruit.canPurchase"
+                            ng-click="addToCart(fruit)" class="pull-right btn btn-success">add to Cart
+                    </button>
+
+                    <section ng-init='selectedTab=0'>
+                        <ul class="nav nav-pills">
+                            <li><a href ng-click="selectedTab=1">Desciption</a></li>
+                            <li><a href ng-click="selectedTab=2">Specification</a></li>
+                            <li><a href ng-click="selectedTab=3">Commentaires</a></li>
+                        </ul>
+
+                        <div class="panel" ng-show="selectedTab == 1">
+                            <h4>Description</h4>
+                            <p>{{ fruit.desc }}</p>
+                        </div>
+                        <div class="panel" ng-show="selectedTab == 2">
+                            <h4>Specification</h4>
+                            <p>Rien de rien</p>
+                        </div>
+                        <div class="panel" ng-show="selectedTab == 3">
+                            <h4>Commentaire</h4>
+                            <p>Rien pour le moment</p>
+                        </div>
+                    </section>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 
 
 </div> <!-- main container -->
