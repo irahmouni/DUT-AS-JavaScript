@@ -30,7 +30,7 @@
     </header>
 
     <ul class="thumbnails">
-        <li ng-repeat="movie in movies" class="span12">
+        <li ng-repeat="movie in persons" class="span12">
             <img ng-src="{{movie.poster}}" class="span2">
             <div class="caption">
                 <h3>{{movie.title}}</h3>
@@ -53,15 +53,15 @@
 
     <section class="modal-body">
         <form name="movieForm" class="form-horizontal" novalidate>
-            <div class="control-group" ng-class="{error : !movieForm.$pristine && movieForm.inputTitle.$error.required}">
+            <div class="control-group" ng-class="{error : !personForm.$pristine && personForm.inputTitle.$error.required}">
                 <label class="control-label">Titre :</label>
                 <input type="text" name="inputTitle" ng-model="movie.title" required>
-                <span class="help-block" ng-show="!movieForm.$pristine && movieForm.inputTitle.$error.required">Le titre est obligatoire</span>
+                <span class="help-block" ng-show="!personForm.$pristine && personForm.inputTitle.$error.required">Le titre est obligatoire</span>
             </div>
-            <div class="control-group" ng-class="{error : movieForm.inputYear.$error.pattern}">
+            <div class="control-group" ng-class="{error : personForm.inputYear.$error.pattern}">
                 <label class="control-label">Année de sortie :</label>
                 <input type="text" name="inputYear" ng-model="movie.releaseYear" ng-pattern="/(19|20)\d\d/">
-                <span class="help-block" ng-show="movieForm.inputYear.$error.pattern">L'année n'est pas valide</span>
+                <span class="help-block" ng-show="personForm.inputYear.$error.pattern">L'année n'est pas valide</span>
             </div>
             <div class="control-group">
                 <label class="control-label">Réalisateur : </label>
@@ -71,28 +71,28 @@
                 <label class="control-label">Acteurs :</label>
                 <input type="text" ng-model="movie.actors">
             </div>
-            <div class="control-group" ng-class="{error : movieForm.textareaSynopsis.$error.maxlength}">
+            <div class="control-group" ng-class="{error : personForm.textareaSynopsis.$error.maxlength}">
                 <label class="control-label">Synopsis :</label>
                 <input type="text" ng-model="movie.synopsis" name="textareaSynopsis" ng-maxlength="140">
-                <span class="help-block" ng-show="movieForm.textareaSynopsis.$error.maxlength">140 caractères maximum</span>
+                <span class="help-block" ng-show="personForm.textareaSynopsis.$error.maxlength">140 caractères maximum</span>
             </div>
-            <div class="control-group" ng-class="{error : !movieForm.$pristine && movieForm.inputPoster.$error.required}">
+            <div class="control-group" ng-class="{error : !personForm.$pristine && personForm.inputPoster.$error.required}">
                 <label class="control-label">Poster (url) :</label>
                 <input type="text" ng-model="movie.poster" name="inputPoster" required>
-                <span class="help-block" ng-show="!movieForm.$pristine && movieForm.inputPoster.$error.required">L'affiche est obligatoire</span>
+                <span class="help-block" ng-show="!personForm.$pristine && personForm.inputPoster.$error.required">L'affiche est obligatoire</span>
             </div>
-            <div class="control-group" ng-class="{error : movieForm.inputRate.$error.min || movieForm.inputRate.$error.max}">
+            <div class="control-group" ng-class="{error : personForm.inputRate.$error.min || personForm.inputRate.$error.max}">
                 <label class="control-label">Note :</label>
                 <input type="number" name="inputRate" placeholder="entre 1 et 5" ng-model="movie.rate" min="0" max="5">
-                <span class="help-block" ng-show="movieForm.inputRate.$error.min">La note doit être supérieure à 0</span>
-                <span class="help-block" ng-show="movieForm.inputRate.$error.max">La note doit être inférieure à 5</span>
+                <span class="help-block" ng-show="personForm.inputRate.$error.min">La note doit être supérieure à 0</span>
+                <span class="help-block" ng-show="personForm.inputRate.$error.max">La note doit être inférieure à 5</span>
             </div>
         </form>
     </section>
 
     <footer class="modal-footer">
         <button data-dismiss="modal" class="btn btn-danger btn-small">Annuler</button>
-        <button data-dismiss="modal" class="btn btn-success" ng-click="addMovie(movie)"
+        <button data-dismiss="modal" class="btn btn-success" ng-click="addPerson(movie)"
             ng-disabled="movieForm.$invalid">Ajouter</button>
     </footer>
 </div>

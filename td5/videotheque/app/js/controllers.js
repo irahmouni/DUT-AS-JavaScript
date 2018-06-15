@@ -1,14 +1,14 @@
 "use strict";
 
-angularMovieApp.controller("homeController", function($scope) {
+angularPersonApp.controller("homeController", function($scope) {
     $scope.user = 'Bilbon Sacquet';
 });
 
-angularMovieApp.controller("moviesController", function($scope) {
-    $scope.movies = MOVIES;
+angularPersonApp.controller("moviesController", function($scope) {
+    $scope.persons = MOVIES;
 
-    $scope.$watch('movies', function (oldLength, newLentgh) {
-        let length = $scope.movies.length;
+    $scope.$watch('persons', function (oldLength, newLentgh) {
+        let length = $scope.persons.length;
         $scope.label = '';
 
         if (length === 0) {
@@ -21,13 +21,13 @@ angularMovieApp.controller("moviesController", function($scope) {
     }, true);
 });
 
-angularMovieApp.controller("movieFormController", function($scope) {
-    $scope.movies = MOVIES;
+angularPersonApp.controller("movieFormController", function($scope) {
+    $scope.persons = MOVIES;
 
-    $scope.addMovie = function(movie) {
-        $scope.movies.push(movie);
+    $scope.addPerson = function(movie) {
+        $scope.persons.push(movie);
         $scope.movie = {};
-        $scope.movieForm.$setPristine();
+        $scope.personForm.$setPristine();
         $('#movie-form-modal').modal('hide');
     };
 });

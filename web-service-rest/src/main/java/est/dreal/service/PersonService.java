@@ -16,7 +16,7 @@ public class PersonService implements IService<Person> {
     private final PersonRepository personRepository;
 
     /**
-     * BeneficiaryService constructor.
+     * PersonService constructor.
      *
      * @param personRepository repository
      */
@@ -29,7 +29,7 @@ public class PersonService implements IService<Person> {
      */
     @Override
     public List<Person> findAll(){
-        return personRepository.findAll(new Sort(Sort.Direction.ASC, "lastName"));
+        return personRepository.findAll(new Sort(Sort.Direction.ASC, "lastName", "firstName"));
     }
 
     /**
@@ -52,6 +52,6 @@ public class PersonService implements IService<Person> {
 
     @Override
     public void delete(final Person person) {
-
+        personRepository.delete(person);
     }
 }

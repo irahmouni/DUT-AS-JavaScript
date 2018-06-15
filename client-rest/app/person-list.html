@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html ng-app="angularPersonApp">
+<head>
+    <title>AngularPerson</title>
+    <meta charset="UTF8">
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body ng-controller="personsController" ng-init="getAllPersons()">
+
+<!-- barre de navigation -->
+<header class="navbar navbar-fixed-top navbar-default">
+    <div class="container-fluid">
+        <section class="container">
+            <a class="navbar-brand" href="index.html">AngularPerson</a>
+            <ul class="nav navbar-nav">
+                <li><a href="person-list.html">Les personnes</a></li>
+            </ul>
+        </section>
+    </div>
+</header>
+
+<!-- partie principale -->
+<section class="container">
+    <div id="errors" class="col-xs-12 text-danger"></div>
+    <div id="infos" class="col-xs-12 text-info"></div>
+
+    <div class="page-header">
+        <h1>La liste des personnes
+            <small>{{label}}</small>
+            <button class="btn btn-primary" ng-click="openFormToAdd()">
+                Ajouter une personne
+            </button>
+        </h1>
+    </div>
+
+    <div id="thumbnails">
+        <div ng-repeat="person in persons" class="col-xs-6">
+            <div class="thumbnail">
+                <img ng-src="{{person.woman ? 'img/femme.png' : 'img/homme.png'}}" alt="avatar">
+                <div class="caption">
+                    <h3>{{person.firstName}} {{person.lastName}}</h3>
+                    <hr>
+                    <button ng-click="openFormToEdit(person)" class="btn btn-sm btn-link">
+                        <span class="glyphicon glyphicon-pencil"></span> Modifier
+                    </button>
+                    <button ng-click="removePerson(person)" class="btn btn-sm btn-link">
+                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- formulaire de création - caché par défaut -->
+<div id="person-form-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <header class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3 ng-bind="modalTitle">Titre</h3>
+            </header>
+
+            <section class="modal-body">
+                <form name="personForm" class="form-horizontal" novalidate>
+                    <div class="control-group"
+                         ng-class="{error : !personForm.$pristine && personForm.inputFirstName.$error.required}">
+                        <label class="control-label">Prénom :</label>
+                        <input type="text" name="inputFirstName" ng-model="person.firstName" ng-value="person.firstName" required>
+                        <span class="help-block" ng-show="!personForm.$pristine && personForm.inputFirstName.$error.required">
+                            Le prénom est obligatoire
+                        </span>
+                    </div>
+                    <div class="control-group"
+                         ng-class="{error : !personForm.$pristine && personForm.inputLastName.$error.pattern}">
+                        <label class="control-label">Nom :</label>
+                        <input type="text" name="inputLastName" ng-model="person.lastName" ng-pattern="/^[a-zA-Z]+$/">
+                        <span class="help-block" ng-show="!personForm.$pristine && personForm.inputLastName.$error.pattern">
+                            Le nom est obligatoire
+                        </span>
+                    </div>
+                    <div class="control-group"
+                         ng-class="{error : !personForm.$pristine && personForm.radioGender.$error.required}">
+                        <label class="control-label">Genre :</label>
+                        <input type="radio" name="radioGender" ng-model="person.woman" ng-value="false" required> Homme
+                        <input type="radio" name="radioGender" ng-model="person.woman" ng-value="true" required> Femme
+                        <span class="help-block" ng-show="!personForm.$pristine && personForm.radioGender.$error.required">
+                            Le genre est obligatoire
+                        </span>
+                    </div>
+                </form>
+            </section>
+
+            <footer class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-danger btn-small">Annuler</button>
+                <button data-dismiss="modal" class="btn btn-success" ng-click="addPerson(person)"
+                        ng-if="person.id == null" ng-disabled="personForm.$invalid">
+                    Ajouter
+                </button>
+                <button data-dismiss="modal" class="btn btn-success" ng-click="editPerson(person)"
+                        ng-if="person.id != null" ng-disabled="personForm.$invalid">
+                    Modifier
+                </button>
+            </footer>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="lib/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="lib/angular/angular.js"></script>
+<script type="text/javascript" src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controllers.js"></script>
+
+</body>
+</html>

@@ -12,9 +12,8 @@ import javax.validation.constraints.NotNull;
 public class Person implements IEntity {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "nom", nullable = false)
@@ -22,6 +21,9 @@ public class Person implements IEntity {
 
     @Column(name = "prenom", nullable = false)
     private String firstName;
+
+    @Column(name = "femme", nullable = false)
+    private boolean woman;
 
 
     @Override
@@ -33,16 +35,24 @@ public class Person implements IEntity {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(final String lastName) {
+        this.lastName = lastName.substring(0,1).toUpperCase() + lastName.substring(1).toLowerCase();
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1).toLowerCase();
+    }
+
+    public boolean isWoman() {
+        return woman;
+    }
+
+    public void setWoman(final boolean woman) {
+        this.woman = woman;
     }
 
     /**
@@ -56,5 +66,7 @@ public class Person implements IEntity {
         if (personToCopy.getFirstName() != null) {
             this.firstName = personToCopy.getFirstName();
         }
+
+        this.woman = personToCopy.isWoman();
     }
 }
